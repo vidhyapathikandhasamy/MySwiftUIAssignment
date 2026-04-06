@@ -63,7 +63,12 @@ struct ProjectListView: View {
         ScrollView {
             VStack(spacing: 16) {
                 ForEach(projects) { project in
-                    ProjectCardView(project: project)
+                    NavigationLink {
+                        ProjectDetailView(project: project)
+                    } label: {
+                        ProjectCardView(project: project)
+                    }
+                    .buttonStyle(.plain)
                 }
             }
             .padding()
