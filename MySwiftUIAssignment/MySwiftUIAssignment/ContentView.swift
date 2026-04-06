@@ -10,10 +10,12 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            ProjectHeaderView()
-                .padding(.bottom, 8)
-            PixelDivider()
-            ProjectListView()
+            NavigationStack {
+                ProjectHeaderView(titleText: "Services", showSearchBar: true)
+                    .padding(.bottom, 8)
+                PixelDivider()
+                ProjectListView()
+            }
         }
     }
 }
