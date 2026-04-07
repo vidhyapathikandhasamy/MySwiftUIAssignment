@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct ProjectHeaderView: View {
-    @State private var searchText: String = ""
+    @Binding var searchText: String
     
     var titleText: String
     
