@@ -109,7 +109,9 @@ private extension View {
             description: "Transform your office with sleek, contemporary furnishings.",
             status: .planned,
             time: Date(),
-            indicatorColor: .planningColor
+            indicatorColor: .planningColor,
+            latitude: 37.7749,
+            longitude: -122.4194
         ),
         Project(
             title: "Modern Workspace Makeover",
@@ -117,7 +119,9 @@ private extension View {
             description: "Revitalize your workspace with stylish, modern decor.",
             status: .scheduled,
             time: Date().addingTimeInterval(86400),
-            indicatorColor: .scheduledColor
+            indicatorColor: .scheduledColor,
+            latitude: 34.0522,
+            longitude: -118.2437
         ),
         Project(
             title: "Contemporary Office Transformation",
@@ -125,13 +129,16 @@ private extension View {
             description: "Elevate your office environment with chic, innovative designs.",
             status: .confirmed,
             time: Date().addingTimeInterval(-86400),
-            indicatorColor: .approvedColor
+            indicatorColor: .approvedColor,
+            latitude: 40.7128,
+            longitude: -74.0060
         )
     ]
     
-    return ProjectListView(
+    ProjectListView(
         projects: mockProjects,
         onSelect: { _ in },
         onRefresh: { }
     )
 }
+
