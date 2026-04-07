@@ -10,6 +10,7 @@ struct ProjectListView: View {
     let projects: [Project]
     
     var onSelect: (Project) -> Void
+    var onRefresh: () async -> Void
     
     var body: some View {
         List(projects) { project in
@@ -29,5 +30,8 @@ struct ProjectListView: View {
         .scrollIndicators(.hidden)
         .background(Color(.white))
         .padding()
+        .refreshable {
+            await onRefresh()
+        }
     }
 }
