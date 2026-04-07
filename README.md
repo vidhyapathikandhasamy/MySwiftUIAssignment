@@ -8,6 +8,7 @@ A SwiftUI application for managing service projects, such as office space revamp
 - **Project Cards**: Each project is presented in a card format with visual indicators (colored circles) and status badges.
 - **Project Details**: Detailed view for each project including:
   - Interactive map showing the service location
+  - Default Apple Maps marker at hardcoded coordinates `12.977723304991823, 80.2515434176114`
   - Customer information
   - Service description
   - Scheduled time
@@ -22,17 +23,21 @@ A SwiftUI application for managing service projects, such as office space revamp
 ```
 MySwiftUIAssignment/
 ├── MySwiftUIAssignment/
-│   ├── AppConstant/
+│   ├── Assets/
 │   │   └── Assets.xcassets/          # App icons and color assets
 │   ├── Constant/
 │   │   └── Color+Assets.swift        # Color extensions for custom assets
 │   ├── Model/
 │   │   └── ListModel.swift           # Project and Status data models
+│   ├── ReusableComponents/
+│   │   ├── InfoRow.swift             # Reusable info row component
+│   │   ├── PixelDivider.swift        # Pixel-perfect divider component
+│   │   └── StatusBadge.swift         # Status badge component
 │   ├── View/
 │   │   ├── ContentView.swift         # Main content view with navigation
-│   │   ├── PixelDivider.swift        # Pixel-perfect divider component
+│   │   ├── JobDetailView.swift       # Job detail view with map
 │   │   ├── ProjectCardView.swift     # Card view for project list items
-│   │   ├── ProjectDetailView.swift   # Detailed project information view
+│   │   ├── ProjectDetailView.swift   # Project detail navigation view
 │   │   ├── ProjectHeaderView.swift   # Header with title and search bar
 │   │   └── ProjectListView.swift     # List view containing project cards
 │   ├── ViewModel/
@@ -66,14 +71,19 @@ Defines project statuses with associated colors and text colors:
 - **ContentView**: Root view managing navigation stack and view model
 - **ProjectListView**: Displays list of projects using SwiftUI List with pull-to-refresh
 - **ProjectCardView**: Individual project card with status indicators
-- **ProjectDetailView**: Comprehensive project details with map integration
+- **ProjectDetailView**: Navigation wrapper for project details
+- **JobDetailView**: Comprehensive job details with interactive map and marker
 - **ProjectHeaderView**: App header with search functionality
 
 ### View Models
 - **SearchViewModel**: Manages search state, filtering, and data refresh using Combine and async/await
 
-### Utilities
+### Reusable Components
+- **InfoRow**: Standardized information display component with icon and text
+- **StatusBadge**: Color-coded status indicator with rounded capsule design
 - **PixelDivider**: Environment-aware divider for pixel-perfect lines
+
+### Utilities
 - **Color Extensions**: Custom colors loaded from asset catalog
 
 ## Technologies Used
@@ -119,13 +129,19 @@ Defines project statuses with associated colors and text colors:
 - **Thread Safety**: UI updates performed on main thread using `MainActor`
 - **Search State Preservation**: Maintains current search filter after refresh
 
+### Code Organization
+- **Reusable Components**: Modular UI components extracted to dedicated folder for better maintainability
+- **View Separation**: JobDetailView separated from ProjectDetailView for cleaner architecture
+- **Asset Management**: Consolidated assets folder structure
+
 ## Architecture Notes
 
 - **MVVM Pattern**: Implemented with ObservableObject view models managing state and business logic
 - **Reactive Programming**: Combine framework for real-time search with debouncing
 - **Async/Await**: Modern Swift concurrency for pull-to-refresh operations
-- **Modular Structure**: Organized into logical folders (Model, View, ViewModel, Constant)
-- **Reusable Components**: Common UI elements like InfoRow and StatusBadge
+- **Modular Structure**: Organized into logical folders (Model, View, ViewModel, ReusableComponents, Assets, Constant)
+- **Component Reusability**: Dedicated folder for shared UI components (InfoRow, StatusBadge, PixelDivider)
+- **Separation of Concerns**: JobDetailView extracted as separate component for better maintainability
 - **Thread Safety**: MainActor for UI updates in async operations
 
 ## Future Enhancements
