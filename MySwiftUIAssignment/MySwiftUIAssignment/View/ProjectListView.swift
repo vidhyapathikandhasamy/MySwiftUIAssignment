@@ -7,7 +7,6 @@
 import SwiftUI
 
 struct ProjectListView: View {
-    
     let projects: [Project] = [
         Project(
             title: "Office Space Revamp",
@@ -15,7 +14,7 @@ struct ProjectListView: View {
             description: "Transform your office with sleek, contemporary furnishings.",
             status: .planned,
             time: "Today, 3:00 PM",
-            indicatorColor: .green
+            indicatorColor: .planningColor
         ),
         Project(
             title: "Modern Workspace Makeover",
@@ -23,7 +22,7 @@ struct ProjectListView: View {
             description: "Revitalize your workspace with stylish, modern decor that inspires creativity.",
             status: .scheduled,
             time: "Today, 3:30 PM",
-            indicatorColor: .yellow
+            indicatorColor: .scheduledColor
         ),
         Project(
             title: "Contemporary Office Transformation",
@@ -31,7 +30,7 @@ struct ProjectListView: View {
             description: "Elevate your office environment with chic, innovative designs.",
             status: .confirmed,
             time: "Today, 4:00 PM",
-            indicatorColor: .blue
+            indicatorColor: .approvedColor
         ),
         Project(
             title: "Office Space Revamp",
@@ -39,7 +38,7 @@ struct ProjectListView: View {
             description: "Transform your office with sleek, contemporary furnishings.",
             status: .planned,
             time: "Today, 3:00 PM",
-            indicatorColor: .green
+            indicatorColor: .planningColor
         ),
         Project(
             title: "Modern Workspace Makeover",
@@ -47,7 +46,7 @@ struct ProjectListView: View {
             description: "Revitalize your workspace with stylish, modern decor that inspires creativity.",
             status: .scheduled,
             time: "Today, 3:30 PM",
-            indicatorColor: .yellow
+            indicatorColor: .scheduledColor
         ),
         Project(
             title: "Contemporary Office Transformation",
@@ -55,24 +54,29 @@ struct ProjectListView: View {
             description: "Elevate your office environment with chic, innovative designs.",
             status: .confirmed,
             time: "Today, 4:00 PM",
-            indicatorColor: .blue
+            indicatorColor: .approvedColor
         )
     ]
     
+    var onSelect: (Project) -> Void
+    
     var body: some View {
-        ScrollView {
-            VStack(spacing: 16) {
-                ForEach(projects) { project in
-                    NavigationLink {
-                        ProjectDetailView(project: project)
-                    } label: {
-                        ProjectCardView(project: project)
-                    }
-                    .buttonStyle(.plain)
-                }
+        List(projects) { project in
+            Button {
+                onSelect(project)
+            } label: {
+                ProjectCardView(project: project)
+                    .padding(.vertical, 8)
             }
-            .padding()
+            .buttonStyle(.plain)
+            .listRowInsets(EdgeInsets())
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color.clear)
         }
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
+        .scrollIndicators(.hidden)
         .background(Color(.white))
+        .padding()
     }
 }

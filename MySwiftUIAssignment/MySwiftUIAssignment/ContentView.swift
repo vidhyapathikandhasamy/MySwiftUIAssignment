@@ -8,13 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var path = NavigationPath()
+    
     var body: some View {
         VStack {
-            NavigationStack {
+            NavigationStack(path: $path) {
                 ProjectHeaderView(titleText: "Services", showSearchBar: true)
                     .padding(.bottom, 8)
                 PixelDivider()
-                ProjectListView()
+                ProjectListView { project in
+                    path.append(project)
+                }
+                .navigationDestination(for: Project.self) { project in
+                    ProjectDetailView(project: project)
+                }
             }
         }
     }
