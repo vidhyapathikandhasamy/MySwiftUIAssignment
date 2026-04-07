@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Project: Identifiable {
+struct Project: Identifiable, Hashable {
     let id = UUID()
     let title: String
     let company: String

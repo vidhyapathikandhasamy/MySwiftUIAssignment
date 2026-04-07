@@ -29,7 +29,7 @@ struct ProjectCardView: View {
             // Company
             HStack(spacing: 8) {
                 Image(systemName: "person.crop.circle")
-                    .foregroundColor(.blue)
+                    .foregroundColor(.iconColor)
                 
                 Text(project.company)
                     .foregroundColor(.gray)
@@ -38,7 +38,7 @@ struct ProjectCardView: View {
             // Description
             HStack(alignment: .top, spacing: 8) {
                 Image(systemName: "doc.text")
-                    .foregroundColor(.blue)
+                    .foregroundColor(.iconColor)
                 
                 Text(project.description)
                     .foregroundColor(.gray)
