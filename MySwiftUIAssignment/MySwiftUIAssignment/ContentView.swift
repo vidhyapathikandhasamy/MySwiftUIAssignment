@@ -9,14 +9,15 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var path = NavigationPath()
+    @StateObject private var viewModel = SearchViewModel()
     
     var body: some View {
         VStack {
             NavigationStack(path: $path) {
-                ProjectHeaderView(titleText: "Services", showSearchBar: true)
+                ProjectHeaderView(searchText: $viewModel.searchText, titleText: "Services", showSearchBar: true)
                     .padding(.bottom, 8)
                 PixelDivider()
-                ProjectListView { project in
+                ProjectListView(projects: viewModel.filteredProjects) { project in
                     path.append(project)
                 }
                 .navigationDestination(for: Project.self) { project in
