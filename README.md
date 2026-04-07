@@ -16,6 +16,7 @@ A SwiftUI application for managing service projects, such as office space revamp
   - Service notes
 - **Search Functionality**: Real-time search with Combine framework and 300ms debounce delay, filtering projects by title, company, and description.
 - **Pull-to-Refresh**: Async pull-to-refresh functionality for updating project data with loading indicator.
+- **Dynamic Time Display**: Intelligent time formatting showing "Today", "Tomorrow", "Yesterday", or full dates with 12-hour AM/PM format.
 - **Navigation**: Smooth navigation between list and detail views using SwiftUI's NavigationStack.
 
 ## Project Structure
@@ -56,8 +57,9 @@ MySwiftUIAssignment/
 - `company`: Client company name
 - `description`: Brief project description
 - `status`: Project status (Planned, Scheduled, Confirmed)
-- `time`: Scheduled time string
+- `time`: Date object for scheduling (dynamically formatted for display)
 - `indicatorColor`: Color for visual indicator
+- `formattedTime`: Computed property returning contextual time string
 
 ### Status Enum
 Defines project statuses with associated colors and text colors:
@@ -91,7 +93,7 @@ Defines project statuses with associated colors and text colors:
 - **SwiftUI**: Modern UI framework for iOS/macOS
 - **Combine**: Reactive programming framework for search functionality
 - **Swift Concurrency**: Async/await for pull-to-refresh implementation
-- **MapKit**: For location and map display
+- **MapKit**: For location and map display with markers
 - **NavigationStack**: For hierarchical navigation
 - **Asset Catalog**: For managing colors and icons
 
@@ -129,10 +131,11 @@ Defines project statuses with associated colors and text colors:
 - **Thread Safety**: UI updates performed on main thread using `MainActor`
 - **Search State Preservation**: Maintains current search filter after refresh
 
-### Code Organization
-- **Reusable Components**: Modular UI components extracted to dedicated folder for better maintainability
-- **View Separation**: JobDetailView separated from ProjectDetailView for cleaner architecture
-- **Asset Management**: Consolidated assets folder structure
+### Map Integration
+- **Apple Maps**: Uses native MapKit for location display
+- **Fixed Coordinates**: Hardcoded marker at `12.977723304991823, 80.2515434176114`
+- **Interactive Map**: Users can zoom and pan the map view
+- **Map Markers**: Red pin marker indicating service location
 
 ## Architecture Notes
 

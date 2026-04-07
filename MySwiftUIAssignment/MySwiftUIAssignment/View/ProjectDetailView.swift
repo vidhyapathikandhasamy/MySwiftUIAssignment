@@ -13,7 +13,7 @@ struct ProjectDetailView: View {
     
     var body: some View {
         VStack {
-            JobDetailView()
+            JobDetailView(project: project)
         }
         .navigationTitle("Service Detail")
         .navigationBarTitleDisplayMode(.inline)
@@ -26,19 +26,7 @@ struct ProjectDetailView: View {
         company: "Beta Solutions",
         description: "Elevate your office environment with chic, innovative designs.",
         status: .confirmed,
-        time: "Today, 4:00 PM",
+        time: Date(),
         indicatorColor: .blue
     ))
-}
-
-
-
-
-
-// MARK: - Preview
-
-struct JobDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        JobDetailView()
-    }
 }

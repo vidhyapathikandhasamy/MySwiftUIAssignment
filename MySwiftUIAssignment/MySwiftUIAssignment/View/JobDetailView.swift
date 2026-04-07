@@ -14,13 +14,7 @@ private struct MapPin: Identifiable {
 
 struct JobDetailView: View {
     
-    // MARK: - Mock Data
-    let title = "Office Space Revamp"
-    let customer = "XYZ Industries"
-    let description = "Transform your office with sleek, contemporary furnishings."
-    let scheduledTime = "Today, 3:00 PM"
-    let locationText = "Coordinate: 12.977723304991823, 80.2515434176114"
-    let notes = "Ensure all old furniture is removed prior to installation. Coordinate with on-site manager for access and layout adjustments."
+    let project: Project
     
     private let locationCoordinate = CLLocationCoordinate2D(latitude: 12.977723304991823, longitude: 80.2515434176114)
     
@@ -45,13 +39,13 @@ struct JobDetailView: View {
                     
                     // MARK: - Header
                     HStack {
-                        Text(title)
+                        Text(project.title)
                             .font(.title2)
                             .fontWeight(.semibold)
                         
                         Spacer()
                         
-                        StatusBadge(text: "Planned")
+                        StatusBadge(text: project.status.title)
                     }
                     .padding(.horizontal)
                     
@@ -61,26 +55,26 @@ struct JobDetailView: View {
                         InfoRow(
                             icon: "person.circle",
                             title: "Customer",
-                            value: customer
+                            value: project.company
                         )
                         
                         InfoRow(
                             icon: "doc.text",
                             title: "Description",
-                            value: description
+                            value: project.description
                         )
                         
                         InfoRow(
                             icon: "clock",
                             title: "Scheduled Time",
-                            value: scheduledTime
+                            value: project.formattedTime
                         )
                         
                         Button(action: openMaps) {
                             InfoRow(
                                 icon: "location",
                                 title: "Location",
-                                value: locationText
+                                value: "Coordinate: 12.977723304991823, 80.2515434176114"
                             )
                         }
                         .buttonStyle(PlainButtonStyle())
@@ -88,7 +82,7 @@ struct JobDetailView: View {
                         InfoRow(
                             icon: "message",
                             title: "Service Notes",
-                            value: notes
+                            value: "Ensure all old furniture is removed prior to installation. Coordinate with on-site manager for access and layout adjustments."
                         )
                     }
                     .padding()

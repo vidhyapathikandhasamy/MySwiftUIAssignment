@@ -63,7 +63,7 @@ struct ProjectCardView: View {
                 
                 Spacer()
                 
-                Text(project.time)
+                Text(project.formattedTime)
                     .foregroundColor(.gray)
             }
         }
