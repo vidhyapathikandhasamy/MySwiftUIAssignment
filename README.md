@@ -13,7 +13,8 @@ A SwiftUI application for managing service projects, such as office space revamp
   - Scheduled time
   - Location details with map integration
   - Service notes
-- **Search Functionality**: Header with search bar for filtering projects.
+- **Search Functionality**: Real-time search with Combine framework and 300ms debounce delay, filtering projects by title, company, and description.
+- **Pull-to-Refresh**: Async pull-to-refresh functionality for updating project data with loading indicator.
 - **Navigation**: Smooth navigation between list and detail views using SwiftUI's NavigationStack.
 
 ## Project Structure
@@ -34,6 +35,8 @@ MySwiftUIAssignment/
 │   │   ├── ProjectDetailView.swift   # Detailed project information view
 │   │   ├── ProjectHeaderView.swift   # Header with title and search bar
 │   │   └── ProjectListView.swift     # List view containing project cards
+│   ├── ViewModel/
+│   │   └── SearchViewModel.swift     # View model for search and data management
 │   └── MySwiftUIAssignmentApp.swift  # App entry point
 ├── MySwiftUIAssignment.xcodeproj/    # Xcode project files
 ├── MySwiftUIAssignmentTests/         # Unit tests
@@ -60,11 +63,14 @@ Defines project statuses with associated colors and text colors:
 ## Key Components
 
 ### Views
-- **ContentView**: Root view managing navigation stack
-- **ProjectListView**: Displays list of projects using SwiftUI List
+- **ContentView**: Root view managing navigation stack and view model
+- **ProjectListView**: Displays list of projects using SwiftUI List with pull-to-refresh
 - **ProjectCardView**: Individual project card with status indicators
 - **ProjectDetailView**: Comprehensive project details with map integration
-- **ProjectHeaderView**: App header with optional search functionality
+- **ProjectHeaderView**: App header with search functionality
+
+### View Models
+- **SearchViewModel**: Manages search state, filtering, and data refresh using Combine and async/await
 
 ### Utilities
 - **PixelDivider**: Environment-aware divider for pixel-perfect lines
@@ -73,6 +79,8 @@ Defines project statuses with associated colors and text colors:
 ## Technologies Used
 
 - **SwiftUI**: Modern UI framework for iOS/macOS
+- **Combine**: Reactive programming framework for search functionality
+- **Swift Concurrency**: Async/await for pull-to-refresh implementation
 - **MapKit**: For location and map display
 - **NavigationStack**: For hierarchical navigation
 - **Asset Catalog**: For managing colors and icons
@@ -97,22 +105,41 @@ Defines project statuses with associated colors and text colors:
 - Xcode 14.0+
 - Swift 5.7+
 
+## Implementation Details
+
+### Search Functionality
+- **Debounced Search**: 300ms delay using Combine's `debounce` operator
+- **Multi-field Search**: Filters by project title, company name, and description
+- **Case-insensitive**: All searches are converted to lowercase for better UX
+- **Real-time Updates**: Results update as user types (after debounce delay)
+
+### Pull-to-Refresh
+- **Async Implementation**: Uses Swift's async/await for non-blocking refresh
+- **Simulated Network Delay**: 1-second delay to demonstrate loading behavior
+- **Thread Safety**: UI updates performed on main thread using `MainActor`
+- **Search State Preservation**: Maintains current search filter after refresh
+
 ## Architecture Notes
 
-- **MVVM Pattern**: Views are separated from data models
-- **Modular Structure**: Organized into logical folders (Model, View, Constant)
+- **MVVM Pattern**: Implemented with ObservableObject view models managing state and business logic
+- **Reactive Programming**: Combine framework for real-time search with debouncing
+- **Async/Await**: Modern Swift concurrency for pull-to-refresh operations
+- **Modular Structure**: Organized into logical folders (Model, View, ViewModel, Constant)
 - **Reusable Components**: Common UI elements like InfoRow and StatusBadge
-- **Hardcoded Data**: Currently uses static project data (can be extended to use Core Data or API)
+- **Thread Safety**: MainActor for UI updates in async operations
 
 ## Future Enhancements
 
-- Add data persistence with Core Data
-- Implement search functionality
-- Add project creation/editing capabilities
-- Integrate with backend API for real-time data
-- Add push notifications for project updates
-- Implement user authentication
+- Add data persistence with Core Data or SwiftData
+- Integrate with backend API for real-time data synchronization
+- Add project creation, editing, and deletion capabilities
+- Implement user authentication and role-based access
+- Add push notifications for project updates and reminders
+- Include project progress tracking and status updates
+- Add offline support with data caching
+- Implement advanced filtering and sorting options
 
 ---
 
-Created by Vidhyapathi on April 6, 2026
+Created by Vidhyapathi on April 6, 2026  
+Last updated: April 7, 2026

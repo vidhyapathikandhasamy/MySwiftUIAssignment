@@ -17,9 +17,11 @@ struct ContentView: View {
                 ProjectHeaderView(searchText: $viewModel.searchText, titleText: "Services", showSearchBar: true)
                     .padding(.bottom, 8)
                 PixelDivider()
-                ProjectListView(projects: viewModel.filteredProjects) { project in
+                ProjectListView(projects: viewModel.filteredProjects, onSelect: { project in
                     path.append(project)
-                }
+                }, onRefresh: {
+                    await viewModel.refreshProjects()
+                })
                 .navigationDestination(for: Project.self) { project in
                     ProjectDetailView(project: project)
                 }

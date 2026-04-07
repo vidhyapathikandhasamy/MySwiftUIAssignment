@@ -89,4 +89,13 @@ class SearchViewModel: ObservableObject {
             }
         }
     }
+    
+    func refreshProjects() async {
+        try? await Task.sleep(nanoseconds: 1_000_000_000)
+        
+        // Update on main thread
+        await MainActor.run {
+            filterProjects(with: searchText)
+        }
+    }
 }
