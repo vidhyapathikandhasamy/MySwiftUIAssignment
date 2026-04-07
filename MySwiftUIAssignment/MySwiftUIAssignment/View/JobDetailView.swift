@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import MapKit
+import TablerIcons
 
 private struct MapPin: Identifiable {
     let id = UUID()
@@ -53,26 +54,26 @@ struct JobDetailView: View {
                     VStack(spacing: 20) {
                         
                         InfoRow(
-                            icon: "person.circle",
+                            icon: TablerIcons.userCircleOutlined,
                             title: "Customer",
                             value: project.company
                         )
                         
                         InfoRow(
-                            icon: "doc.text",
+                            icon: TablerIcons.fileDescriptionOutlined,
                             title: "Description",
                             value: project.description
                         )
                         
                         InfoRow(
-                            icon: "clock",
+                            icon: TablerIcons.clockOutlined,
                             title: "Scheduled Time",
                             value: project.formattedTime
                         )
                         
                         Button(action: openMaps) {
                             InfoRow(
-                                icon: "location",
+                                icon: TablerIcons.mapPinOutlined,
                                 title: "Location",
                                 value: "Coordinate: 12.977723304991823, 80.2515434176114"
                             )
@@ -80,7 +81,7 @@ struct JobDetailView: View {
                         .buttonStyle(PlainButtonStyle())
                         
                         InfoRow(
-                            icon: "message",
+                            icon: TablerIcons.messageOutlined,
                             title: "Service Notes",
                             value: "Ensure all old furniture is removed prior to installation. Coordinate with on-site manager for access and layout adjustments."
                         )

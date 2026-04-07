@@ -5,23 +5,22 @@
 //  Created by Vidhyapathi on 07/04/26.
 //
 import SwiftUI
+import TablerIcons
 
 struct InfoRow: View {
-    let icon: String
+    let icon: UIImage
     let title: String
     let value: String
     
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
-            Image(systemName: icon)
-                .font(.title3)
-                .foregroundColor(.iconColor)
+            TablerIconView(icon: icon, size: 20)
                 .frame(width: 28)
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .font(.headline)
+                    .foregroundColor(.black)
                 
                 Text(value)
                     .font(.body)
