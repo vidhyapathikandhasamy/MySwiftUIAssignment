@@ -15,6 +15,8 @@ struct Project: Identifiable, Hashable {
     let status: Status
     let time: Date
     let indicatorColor: Color
+    let latitude: Double
+    let longitude: Double
     
     var formattedTime: String {
         let calendar = Calendar.current
