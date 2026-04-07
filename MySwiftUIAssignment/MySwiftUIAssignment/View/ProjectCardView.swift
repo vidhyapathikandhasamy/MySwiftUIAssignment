@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TablerIcons
 
 struct ProjectCardView: View {
     let project: Project
@@ -13,10 +14,9 @@ struct ProjectCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             
-            // Title + Indicator
             HStack {
                 Text(project.title)
-                    .font(.headline)
+                    .font(.body)
                     .fontWeight(.bold)
                 
                 Spacer()
@@ -28,8 +28,7 @@ struct ProjectCardView: View {
             
             // Company
             HStack(spacing: 8) {
-                Image(systemName: "person.crop.circle")
-                    .foregroundColor(.iconColor)
+                TablerIconView(icon: TablerIcons.userCircleOutlined)
                 
                 Text(project.company)
                     .foregroundColor(.gray)
@@ -37,8 +36,7 @@ struct ProjectCardView: View {
             
             // Description
             HStack(alignment: .top, spacing: 8) {
-                Image(systemName: "doc.text")
-                    .foregroundColor(.iconColor)
+                TablerIconView(icon: TablerIcons.fileDescriptionOutlined)
                 
                 Text(project.description)
                     .foregroundColor(.gray)
@@ -76,3 +74,4 @@ struct ProjectCardView: View {
         .cornerRadius(16)
     }
 }
+

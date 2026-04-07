@@ -31,9 +31,10 @@ MySwiftUIAssignment/
 │   ├── Model/
 │   │   └── ListModel.swift           # Project and Status data models
 │   ├── ReusableComponents/
-│   │   ├── InfoRow.swift             # Reusable info row component
+│   │   ├── InfoRow.swift             # Reusable info row component with TablerIcons
 │   │   ├── PixelDivider.swift        # Pixel-perfect divider component
-│   │   └── StatusBadge.swift         # Status badge component
+│   │   ├── StatusBadge.swift         # Status badge component
+│   │   └── TablerIconView.swift      # Reusable TablerIcon wrapper component
 │   ├── View/
 │   │   ├── ContentView.swift         # Main content view with navigation
 │   │   ├── JobDetailView.swift       # Job detail view with map
@@ -81,9 +82,10 @@ Defines project statuses with associated colors and text colors:
 - **SearchViewModel**: Manages search state, filtering, and data refresh using Combine and async/await
 
 ### Reusable Components
-- **InfoRow**: Standardized information display component with icon and text
+- **InfoRow**: Standardized information display component with TablerIcon and text
 - **StatusBadge**: Color-coded status indicator with rounded capsule design
 - **PixelDivider**: Environment-aware divider for pixel-perfect lines
+- **TablerIconView**: Reusable wrapper for TablerIcons with configurable size and color
 
 ### Utilities
 - **Color Extensions**: Custom colors loaded from asset catalog
@@ -95,6 +97,7 @@ Defines project statuses with associated colors and text colors:
 - **Swift Concurrency**: Async/await for pull-to-refresh implementation
 - **MapKit**: For location and map display with markers
 - **NavigationStack**: For hierarchical navigation
+- **TablerIcons**: Professional icon library for consistent UI elements
 - **Asset Catalog**: For managing colors and icons
 
 ## Getting Started
@@ -109,13 +112,24 @@ Defines project statuses with associated colors and text colors:
    open MySwiftUIAssignment.xcodeproj
    ```
 
-3. Build and run the app on a simulator or device.
+3. Add TablerIcons package dependency:
+   - In Xcode: File → Add Packages...
+   - Enter: `https://github.com/tabler/tabler-icons-swift`
+   - Add to your target
+
+4. Build and run the app on a simulator or device.
 
 ## Requirements
 
 - iOS 16.0+ or macOS 13.0+
 - Xcode 14.0+
 - Swift 5.7+
+
+## Dependencies
+
+- **TablerIcons**: Professional icon library
+  - Repository: `https://github.com/tabler/tabler-icons-swift`
+  - Add via Xcode: File → Add Packages... → Enter repository URL
 
 ## Implementation Details
 
@@ -131,16 +145,36 @@ Defines project statuses with associated colors and text colors:
 - **Thread Safety**: UI updates performed on main thread using `MainActor`
 - **Search State Preservation**: Maintains current search filter after refresh
 
-### Map Integration
-- **Apple Maps**: Uses native MapKit for location display
-- **Fixed Coordinates**: Hardcoded marker at `12.977723304991823, 80.2515434176114`
-- **Interactive Map**: Users can zoom and pan the map view
-- **Map Markers**: Red pin marker indicating service location
+### Reusable Component Architecture
+- **TablerIconView**: Centralized icon management component providing:
+  - Consistent styling across all TablerIcons
+  - Configurable size and color parameters
+  - Template rendering for proper tinting
+  - Easy maintenance and updates
+- **InfoRow**: Updated to use TablerIcons instead of SF Symbols for consistency
+- **ProjectCardView**: Refactored to use TablerIconView for maintainable icon usage
+- **Tabler Icons**: Consistent icon library used throughout the app via TablerIconView component
+- **TablerIconView Component**: Reusable wrapper providing:
+  - Configurable size (default: 18pt)
+  - Configurable color (default: .iconColor)
+  - Template rendering for tinting
+- **Project Card Icons**:
+  - User circle icon (`TablerIcons.userCircleOutlined`) for company/client information
+  - File description icon (`TablerIcons.fileDescriptionOutlined`) for project descriptions
+- **Detail View Icons**:
+  - User circle outlined (`TablerIcons.userCircleOutlined`) for customer info
+  - File description outlined (`TablerIcons.fileDescriptionOutlined`) for descriptions
+  - Clock outlined (`TablerIcons.clockOutlined`) for scheduled times
+  - Map pin outlined (`TablerIcons.mapPinOutlined`) for locations
+  - Message outlined (`TablerIcons.messageOutlined`) for service notes
 
 ## Architecture Notes
 
 - **MVVM Pattern**: Implemented with ObservableObject view models managing state and business logic
 - **Reactive Programming**: Combine framework for real-time search with debouncing
+- **Reusable Component Architecture**: Modular components for consistent UI and maintainability
+- **Icon System**: Centralized TablerIcon management through TablerIconView for consistent styling
+- **Async/Await**: Modern concurrency for pull-to-refresh and data operations
 - **Async/Await**: Modern Swift concurrency for pull-to-refresh operations
 - **Modular Structure**: Organized into logical folders (Model, View, ViewModel, ReusableComponents, Assets, Constant)
 - **Component Reusability**: Dedicated folder for shared UI components (InfoRow, StatusBadge, PixelDivider)

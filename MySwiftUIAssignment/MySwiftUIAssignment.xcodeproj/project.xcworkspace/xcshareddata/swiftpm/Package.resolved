@@ -1,0 +1,15 @@
+{
+  "originHash" : "36a6f1ed6c8b152ced9c5158b7d024336493687879cd08100e8f86331f28929b",
+  "pins" : [
+    {
+      "identity" : "tabler-icons-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/YazeedAlKhalaf/tabler-icons-swift.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "41cfb5218c63420fea0d729a843b1dadd404ae63"
+      }
+    }
+  ],
+  "version" : 3
+}
